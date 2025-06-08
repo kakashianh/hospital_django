@@ -1,0 +1,90 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "username": "admin",
+            "email": "admin@example.com",
+            "password": "pbkdf2_sha256$390000$abc123$5f4dcc3b5aa765d61d8327deb882cf99",
+            "is_staff": true,
+            "is_superuser": true
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "username": "staff",
+            "email": "staff@example.com",
+            "password": "pbkdf2_sha256$390000$def456$5f4dcc3b5aa765d61d8327deb882cf99",
+            "is_staff": true,
+            "is_superuser": false
+        }
+    },    
+    {
+        "model": "hospital_api.physician",
+        "pk": 1,
+        "fields": {
+            "name": "John Dorian",
+            "position": "Staff Internist",
+            "ssn": 111111111,
+            "created_at": "2024-01-18T12:00:00Z",
+            "created_by": "1"
+        }
+    },
+    {
+        "model": "hospital_api.physician",
+        "pk": 2,
+        "fields": {
+            "name": "Elliot Reid",
+            "position": "Attending Physician",
+            "ssn": 222222222,
+            "created_at": "2024-01-18T12:00:00Z",
+            "created_by": "1"
+        }
+    },
+    {
+        "model": "hospital_api.physician",
+        "pk": 3,
+        "fields": {
+            "name": "Christopher Turk",
+            "position": "Chief of Surgery",
+            "ssn": 333333333,
+            "created_at": "2024-01-18T12:00:00Z",
+            "created_by": "1"            
+        }
+    },
+    {
+        "model": "hospital_api.physician",
+        "pk": 4,
+        "fields": {
+            "name": "Bob Kelso",
+            "position": "Chief of Medicine",
+            "ssn": 444444444,
+            "created_at": "2024-01-18T12:00:00Z",
+            "created_by": "1"            
+        }
+    },
+    {
+        "model": "hospital_api.physician",
+        "pk": 5,
+        "fields": {
+            "name": "Perry Cox",
+            "position": "Attending Physician",
+            "ssn": 555555555,
+            "created_at": "2024-01-18T12:00:00Z",
+            "created_by": "1"            
+        }
+    },
+    {
+        "model": "hospital_api.physician",
+        "pk": 6,
+        "fields": {
+            "name": "Ted Buckland",
+            "position": "Hospital Lawyer",
+            "ssn": 666666666,
+            "created_at": "2024-01-18T12:00:00Z",
+            "created_by": "1"            
+        }
+    }
+]
