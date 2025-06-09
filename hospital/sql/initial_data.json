@@ -84,7 +84,67 @@
             "position": "Hospital Lawyer",
             "ssn": 666666666,
             "created_at": "2024-01-18T12:00:00Z",
+            "created_by": "1"
+        }
+    },
+    {
+        "model": "hospital_api.medication",
+        "pk": 1,
+        "fields": {
+            "code": 1,
+            "name": "Procrastin-X",
+            "brand": "X",
+            "description": "N/A",
+            "created_at": "2024-01-18T12:00:00Z",
+            "created_by": "1"
+        }
+    },
+    {
+        "model": "hospital_api.medication",
+        "pk": 2,
+        "fields": {
+            "code": 2,
+            "name": "Thesisin",
+            "brand": "Foo Labs",
+            "description": "N/A",
+            "created_at": "2024-01-18T12:00:00Z",
             "created_by": "1"            
+        }
+    },
+    {
+        "model": "hospital_api.medication",
+        "pk": 3,
+        "fields": {
+            "code": 3,
+            "name": "Awakin",
+            "brand": "Bar Laboratories",
+            "description": "N/A",
+            "created_at": "2024-01-18T12:00:00Z",
+            "created_by": "1"
+        }
+    },
+    {
+        "model": "hospital_api.medication",
+        "pk": 4,
+        "fields": {
+            "code": 4,
+            "name": "Crescavitin",
+            "brand": "Baz Industries",
+            "description": "N/A",
+            "created_at": "2024-01-18T12:00:00Z",
+            "created_by": "1"
+        }
+    },
+    {
+        "model": "hospital_api.medication",
+        "pk": 5,
+        "fields": {
+            "code": 5,
+            "name": "Melioraurin",
+            "brand": "Snafu Pharmaceuticals",
+            "description": "N/A",
+            "created_at": "2024-01-18T12:00:00Z",
+            "created_by": "1"
         }
     }
 ]

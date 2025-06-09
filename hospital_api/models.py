@@ -50,8 +50,6 @@ class TrainedIn(models.Model):
     treatment = models.ForeignKey(Procedures, on_delete=models.CASCADE)
     certification_date = models.DateTimeField()
     certification_expires = models.DateTimeField()
-    created_at = models.DateTimeField(auto_now_add=True)  # Created at timestamp
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # Foreign key to User
 
     class Meta:
         unique_together = ('physician', 'treatment')
@@ -115,8 +113,6 @@ class Prescribes(models.Model):
     date = models.DateTimeField()
     appointment = models.ForeignKey(Appointment, null=True, on_delete=models.SET_NULL)
     dose = models.CharField(max_length=30)
-    created_at = models.DateTimeField(auto_now_add=True)  # Created at timestamp
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # Foreign key to User
 
     class Meta:
         unique_together = ('physician', 'patient', 'medication', 'date')
@@ -138,6 +134,8 @@ class Room(models.Model):
     block_floor = models.IntegerField()
     block_code = models.IntegerField()
     unavailable = models.BooleanField()
+    created_at = models.DateTimeField(auto_now_add=True)  # Created at timestamp
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # Foreign key to User
 
     class Meta:
         unique_together = ('block_floor', 'block_code')
@@ -160,6 +158,8 @@ class Stay(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     stay_start = models.DateTimeField()
     stay_end = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)  # Created at timestamp
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # Foreign key to User
 
 # Undergoes Model (Many-to-Many relationship between Patient, Procedures, Stay)
 class Undergoes(models.Model):
