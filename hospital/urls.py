@@ -19,7 +19,8 @@ from django.urls import path, include
 from hospital_api import urls as hospital_urls 
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    # path('api-auth/', include('rest_framework.urls')),
-    # path('hospital/', include(hospital_urls)),
+    path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include('hospital_api.urls')),
+    path('hospital/', include(hospital_urls)),
 ]

@@ -5,3 +5,4 @@ class PhysicianSerializer(serializers.ModelSerializer):
     class Meta:
         model = Physician
         fields = ["employee_id", "name", "position", "ssn", "created_at", "created_by"]
+        read_only_fields = ["created_at", "created_by"]
