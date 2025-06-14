@@ -1,37 +1,51 @@
-# todo/todo_api/views.py
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import permissions
-from .models import Physician
-from .serializers import PhysicianSerializer
+from rest_framework import viewsets, permissions
+from .models import Physician, Appointment, Department, Patient, Nurse
+from django_filters.rest_framework import DjangoFilterBackend
+from .serializers import PhysicianSerializer, AppointmentSerializer, DepartmentSerializer, PatientSerializer, NurseSerializer
 
-class PhysicianListApiView(APIView):
-    # add permission to check if user is authenticated
-    permission_classes = [permissions.IsAuthenticated]
+class PhysicianViewSet(viewsets.ModelViewSet):
+    queryset = Physician.objects.all()
+    serializer_class = PhysicianSerializer
+    permission_classes = [permissions.AllowAny]
 
-    # 1. List all
-    def get(self, request, *args, **kwargs):
-        '''
-        List all the todo items for given requested user
-        '''
-        physicians = Physician.objects.filter(user = request.user.id)
-        serializer = PhysicianSerializer(physicians, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
-    # 2. Create
-    def post(self, request, *args, **kwargs):
-        '''
-        Create the Todo with given todo data
-        '''
-        data = {
-            'task': request.data.get('task'), 
-            'completed': request.data.get('completed'), 
-            'user': request.user.id
-        }
-        serializer = PhysicianSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+class AppointmentViewSet(viewsets.ModelViewSet):
+    serializer_class = AppointmentSerializer
+    queryset = Appointment.objects.all()
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def get_queryset(self):
+        physician_id = self.request.query_params.get('physician')
+        patient_id = self.request.query_params.get('patient')
+        if physician_id:
+            return Appointment.objects.filter(physician_id=physician_id)
+        if patient_id:
+            return Appointment.objects.filter(patient_id=patient_id)
+        if physician_id and patient_id:
+            return Appointment.objects.filter(physician_id=physician_id, patient_id=patient_id)
+        return Appointment.objects.all()
+
+class DepartmentViewSet(viewsets.ModelViewSet):
+    queryset = Department.objects.all()
+    serializer_class = DepartmentSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+class PatientViewSet(viewsets.ModelViewSet):
+    queryset = Patient.objects.all()
+    serializer_class = PatientSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+class NurseViewSet(viewsets.ModelViewSet):
+    queryset = Nurse.objects.all()
+    serializer_class = NurseSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)

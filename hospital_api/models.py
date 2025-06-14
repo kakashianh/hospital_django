@@ -3,26 +3,30 @@ from django.contrib.auth.models import User
 
 # Physician Model
 class Physician(models.Model):
-    employee_id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=30)
-    position = models.CharField(max_length=30)
-    ssn = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)  # Created at timestamp
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # Foreign key to User    
+    employee_id = models.IntegerField(primary_key=True, db_column='EmployeeID')
+    name = models.CharField(max_length=30, db_column='Name')
+    position = models.CharField(max_length=30, db_column='Position')
+    ssn = models.IntegerField(db_column='SSN')
+
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        db_table = 'Physician'
 
 # Department Model
 class Department(models.Model):
-    department_id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=30)
-    head = models.ForeignKey(Physician, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)  # Created at timestamp
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # Foreign key to User
+    department_id = models.IntegerField(primary_key=True, db_column='DepartmentID')
+    name = models.CharField(max_length=30, db_column='Name')
+    head = models.ForeignKey(Physician, on_delete=models.CASCADE, db_column='Head')
+
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        db_table = 'Department'
 
 # Affiliated_With Model (Many-to-Many relationship between Physician and Department)
 class AffiliatedWith(models.Model):
@@ -56,42 +60,46 @@ class TrainedIn(models.Model):
 
 # Patient Model
 class Patient(models.Model):
-    ssn = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=30)
-    address = models.CharField(max_length=30)
-    phone = models.CharField(max_length=30)
-    insurance_id = models.IntegerField()
-    pcp = models.ForeignKey(Physician, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)  # Created at timestamp
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # Foreign key to User
+    ssn = models.IntegerField(primary_key=True, db_column='SSN')
+    name = models.CharField(max_length=30, db_column='Name')
+    address = models.CharField(max_length=30, db_column='Address')
+    phone = models.CharField(max_length=30, db_column='Phone')
+    insurance_id = models.IntegerField(db_column='InsuranceID')
+    pcp = models.ForeignKey(Physician, on_delete=models.CASCADE, db_column='PCP')
+
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        db_table = 'Patient'
 
 # Nurse Model
 class Nurse(models.Model):
-    employee_id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=30)
-    position = models.CharField(max_length=30)
-    registered = models.BooleanField()
-    ssn = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)  # Created at timestamp
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # Foreign key to User
+    employee_id = models.IntegerField(primary_key=True, db_column='EmployeeID')
+    name = models.CharField(max_length=30, db_column='Name')
+    position = models.CharField(max_length=30, db_column='Position')
+    registered = models.BooleanField(db_column='Registered')
+    ssn = models.IntegerField(db_column='SSN')
+
 
     def __str__(self):
         return self.name
 
+    class Meta:
+        db_table = 'Nurse'
 # Appointment Model
 class Appointment(models.Model):
-    appointment_id = models.IntegerField(primary_key=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    prep_nurse = models.ForeignKey(Nurse, null=True, on_delete=models.SET_NULL)
-    physician = models.ForeignKey(Physician, on_delete=models.CASCADE)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
-    examination_room = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)  # Created at timestamp
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # Foreign key to User
+    appointment_id = models.IntegerField(primary_key=True, db_column='AppointmentID')
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, db_column='Patient')
+    prep_nurse = models.ForeignKey(Nurse, null=True, on_delete=models.SET_NULL, db_column='PrepNurse')
+    physician = models.ForeignKey(Physician, on_delete=models.CASCADE, db_column='Physician')
+    start_time = models.DateTimeField(db_column='Starto')
+    end_time = models.DateTimeField(db_column='Endo')
+    examination_room = models.TextField(db_column='ExaminationRoom')
+
+    class Meta:
+        db_table = 'Appointment'
 
 # Medication Model
 class Medication(models.Model):

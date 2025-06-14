@@ -1,9 +1,14 @@
-# todo/todo_api/urls.py : API urls.py
 from django.urls import path, include
-from .views import (
-    PhysicianListApiView,
-)
+from rest_framework.routers import DefaultRouter
+from .views import PhysicianViewSet, AppointmentViewSet, DepartmentViewSet, PatientViewSet, NurseViewSet
+
+router = DefaultRouter()
+router.register(r'physicians', PhysicianViewSet)
+router.register(r'appointments', AppointmentViewSet)
+router.register(r'departments', DepartmentViewSet)
+router.register(r'patients', PatientViewSet)
+router.register(r'nurses', NurseViewSet)
 
 urlpatterns = [
-    path('api', PhysicianListApiView.as_view()),
+    path('', include(router.urls)),
 ]

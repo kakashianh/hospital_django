@@ -16,10 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from hospital_api import urls as hospital_urls 
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    # path('api-auth/', include('rest_framework.urls')),
-    # path('hospital/', include(hospital_urls)),
+    path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),  # để login/logout
+    path('', include('hospital_api.urls')),  # kết nối tới urls.py trong app
 ]
