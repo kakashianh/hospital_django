@@ -7,17 +7,21 @@ from .models import Physician, Appointment, Department, Patient, Nurse
 from .serializers import PhysicianSerializer, AppointmentSerializer, DepartmentSerializer, PatientSerializer, NurseSerializer
 
 class StatisticsViewSet(viewsets.ViewSet):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAdminUser]
 
     def list(self, request):
         today = date.today()
         patient_count = Patient.objects.count()
         physician_count = Physician.objects.count()
+        nurse_count = Nurse.objects.count()
+        department_count = Department.objects.count()
         appointment_today = Appointment.objects.filter(start_time__date=today).count()
 
         data = {
             'total_patients': patient_count,
             'total_physicians': physician_count,
+            'total_nurses': nurse_count,
+            'total_departments': department_count,
             'appointments_today': appointment_today
         }
         return Response(data)
@@ -50,6 +54,7 @@ class DepartmentViewSet(viewsets.ModelViewSet):
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
     permission_classes = [permissions.AllowAny]
+
 
 
 

@@ -96,7 +96,7 @@ class Appointment(models.Model):
     physician = models.ForeignKey(Physician, on_delete=models.CASCADE, db_column='Physician')
     start_time = models.DateTimeField(db_column='Starto')
     end_time = models.DateTimeField(db_column='Endo')
-    examination_room = models.TextField(db_column='ExaminationRoom')
+    department = models.ForeignKey('Department', on_delete=models.SET_NULL, null=True, db_column='department')
 
     class Meta:
         db_table = 'Appointment'
