@@ -29,7 +29,7 @@ class StatisticsViewSet(viewsets.ViewSet):
 class PhysicianViewSet(viewsets.ModelViewSet):
     queryset = Physician.objects.all()
     serializer_class = PhysicianSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
 
@@ -37,7 +37,7 @@ class PhysicianViewSet(viewsets.ModelViewSet):
 class AppointmentViewSet(viewsets.ModelViewSet):
     serializer_class = AppointmentSerializer
     queryset = Appointment.objects.all()
-
+    permission_classes = [permissions.IsAuthenticated]
     def get_queryset(self):
         physician_id = self.request.query_params.get('physician')
         patient_id = self.request.query_params.get('patient')
@@ -53,7 +53,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
 class DepartmentViewSet(viewsets.ModelViewSet):
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 
@@ -61,7 +61,7 @@ class DepartmentViewSet(viewsets.ModelViewSet):
 class PatientViewSet(viewsets.ModelViewSet):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['phone', 'pcp']
     search_fields = ['name']
@@ -69,6 +69,6 @@ class PatientViewSet(viewsets.ModelViewSet):
 class NurseViewSet(viewsets.ModelViewSet):
     queryset = Nurse.objects.all()
     serializer_class = NurseSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
